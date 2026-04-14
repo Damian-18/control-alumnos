@@ -1,0 +1,107 @@
+.alumnos-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.alumnos-titulo {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.alumnos-card {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+  border: 1px solid #e1e8ed;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.clases-selector {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.clase-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+/* Botones */
+.btn-alumnos {
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-guardar { background-color: #27ae60; }
+.btn-actualizar { background-color: #2980b9; }
+.btn-cancelar { background-color: #95a5a6; margin-top: 10px; }
+
+/* Tabla */
+.alumnos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.alumnos-table th {
+  background-color: #f1f3f5;
+  color: #495057;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.alumnos-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.badge-clase {
+  display: inline-block;
+  background-color: #e8f4fd;
+  color: #3498db;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin: 2px;
+  border: 1px solid #3498db;
+}

@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Docentes from './Componentes/Docentes';
+import './Componentes/estilomenu.css';
+import Alumnos from './Componentes/Alumnos';
+import Clases from './Componentes/Clases';
 
 function App() {
+  // Estado para saber qué vista mostrar
+  const [vistaActual, setVistaActual] = useState('docentes');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Menú de Navegación */}
+      <nav className="navbar">
+        <button 
+          className={`nav-button ${vistaActual === 'docentes' ? 'active' : ''}`}
+          onClick={() => setVistaActual('docentes')}
         >
-          Learn React
-        </a>
-      </header>
+          Docentes
+        </button>
+        <button 
+          className={`nav-button ${vistaActual === 'clases' ? 'active' : ''}`}
+          onClick={() => setVistaActual('clases')}
+        >
+          Clases
+        </button>
+        <button 
+          className={`nav-button ${vistaActual === 'alumnos' ? 'active' : ''}`}
+          onClick={() => setVistaActual('alumnos')}
+        >
+          Alumnos
+        </button>
+      </nav>
+
+      {/* Renderizado Condicional */}
+      <main>
+        {vistaActual === 'docentes' && <Docentes />}
+        {vistaActual === 'clases' && <Clases />}
+        {vistaActual === 'alumnos' && <Alumnos />}
+      </main>
     </div>
   );
 }
