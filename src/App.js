@@ -3,6 +3,7 @@ import Docentes from './Componentes/Docentes';
 import './Componentes/estilomenu.css';
 import Alumnos from './Componentes/Alumnos';
 import Clases from './Componentes/Clases';
+import Inicio from './Componentes/Inicio';
 
 function App() {
   // Estado para saber qué vista mostrar
@@ -34,6 +35,7 @@ function App() {
 
       {/* Renderizado Condicional */}
       <main>
+        {vistaActual === 'inicio' && <Inicio />}
         {vistaActual === 'docentes' && <Docentes />}
         {vistaActual === 'clases' && <Clases />}
         {vistaActual === 'alumnos' && <Alumnos />}
