@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './estiloalumno.css';
 
-const Alumnos = () => {
-  const [alumnos, setAlumnos] = useState([]);
-  const [clasesDisponibles, setClasesDisponibles] = useState([]);
+const Alumnos = ({ volverInicio }) => {
+  // 1. INICIALIZACIÓN PEREZOSA: Leemos el LocalStorage directamente al crear el estado
+  const [alumnos, setAlumnos] = useState(() => {
+    const storedAlumnos = localStorage.getItem('alumnos');
+    return storedAlumnos ? JSON.parse(storedAlumnos) : [];
+  });
+
+  const [clasesDisponibles] = useState(() => {
+    const storedClases = localStorage.getItem('clases');
+    return storedClases ? JSON.parse(storedClases) : [];
+  });
+
   const [isEditing, setIsEditing] = useState(false);
   
   const [formData, setFormData] = useState({
     id: '',
     nombre: '',
     matricula: '',
-    clasesInscritas: [] // Guardaremos los IDs de las clases
+    clasesInscritas: [] 
   });
-
-  // Cargar Alumnos y Clases de LocalStorage
-  useEffect(() => {
-    const storedAlumnos = JSON.parse(localStorage.getItem('alumnos')) || [];
-    const storedClases = JSON.parse(localStorage.getItem('clases')) || [];
-    setAlumnos(storedAlumnos);
-    setClasesDisponibles(storedClases);
-  }, []);
 
   // Guardar en LocalStorage
   useEffect(() => {
@@ -78,7 +79,26 @@ const Alumnos = () => {
 
   return (
     <div className="alumnos-container">
-      <h2 className="alumnos-titulo">Gestión de Alumnos</h2>
+      {/* 2. Contenedor flex para título y botón */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 className="alumnos-titulo" style={{ margin: 0 }}>Gestión de Alumnos</h2>
+        <button 
+          onClick={volverInicio} 
+          className="btn-cancelar" 
+          style={{ 
+            padding: '8px 15px', 
+            fontSize: '14px',
+            fontWeight: 'bold', 
+            cursor: 'pointer',
+            border: 'none', 
+            borderRadius: '4px',
+            height: 'fit-content',
+            color: 'white'
+          }}
+        >
+          ✖ Cerrar
+        </button>
+      </div>
 
       <div className="alumnos-card">
         <h3>{isEditing ? 'Modificar Alumno' : 'Registrar Alumno'}</h3>

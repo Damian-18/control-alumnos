@@ -36,9 +36,9 @@ function App() {
       {/* Renderizado Condicional */}
       <main>
         {vistaActual === 'inicio' && <Inicio />}
-        {vistaActual === 'docentes' && <Docentes />}
-        {vistaActual === 'clases' && <Clases />}
-        {vistaActual === 'alumnos' && <Alumnos />}
+        {vistaActual === 'docentes' && <Docentes volverInicio={() => setVistaActual('inicio')} />}
+        {vistaActual === 'clases' && <Clases volverInicio={() => setVistaActual('inicio')} />}
+        {vistaActual === 'alumnos' && <Alumnos volverInicio={() => setVistaActual('inicio')} />}
       </main>
     </div>
   );

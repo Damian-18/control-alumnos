@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './estiloclases.css';
 
-const Clases = () => {
+const Clases = ({ volverInicio }) => {
   // 1. Estado de Clases (con inicialización perezosa)
   const [clases, setClases] = useState(() => {
     const storedClases = localStorage.getItem('clases');
@@ -65,7 +65,17 @@ const Clases = () => {
 
   return (
     <div className="clases-container">
-      <h2 className="clases-titulo">Gestión de Clases</h2>
+      {/* 2. Contenedor flex para título y botón */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 className="clases-titulo" style={{ margin: 0 }}>Gestión de Clases</h2>
+        <button 
+          onClick={volverInicio} 
+          className="btn btn-cancelar" 
+          style={{ padding: '8px 15px', fontWeight: 'bold', cursor: 'pointer' }}
+        >
+          ✖ Cerrar
+        </button>
+      </div>
 
       {/* Formulario */}
       <div className="clases-card">

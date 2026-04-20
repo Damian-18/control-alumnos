@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './estilodocente.css';
 
-const Docentes = () => {
+const Docentes = ({ volverInicio }) => {
   // 1. AFINACIÓN: Leer localStorage directamente al iniciar el estado
   const [docentes, setDocentes] = useState(() => {
     const storedDocentes = localStorage.getItem('docentes');
@@ -42,7 +42,7 @@ const Docentes = () => {
       [name]: value
     });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEditing) {
@@ -73,7 +73,17 @@ const Docentes = () => {
 
   return (
     <div className="docentes-container">
-      <h2 className="docentes-titulo">Gestión de Docentes</h2>
+      {/* 2. Envolver el título y el botón en un div flex para alinearlos */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 className="docentes-titulo" style={{ margin: 0 }}>Gestión de Docentes</h2>
+        <button 
+          onClick={volverInicio} 
+          className="btn btn-cancelar" 
+          style={{ padding: '8px 15px', fontWeight: 'bold', cursor: 'pointer' }}
+        >
+          ✖ Cerrar
+        </button>
+      </div>
 
       {/* Formulario */}
       <div className="docentes-card">
