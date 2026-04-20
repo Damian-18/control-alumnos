@@ -6,7 +6,7 @@ import Clases from './Componentes/Clases';
 
 function App() {
   // Estado para saber qué vista mostrar
-  const [vistaActual, setVistaActual] = useState('docentes');
+  const [vistaActual, setVistaActual] = useState('inicio');
 
   return (
     <div className="App">
