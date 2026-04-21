@@ -3,6 +3,11 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
 }
 
 .inicio-titulo {
@@ -51,6 +56,18 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.stat-card-button {
+  width: 100%;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.stat-card-button:focus-visible {
+  outline: 3px solid rgba(52, 152, 219, 0.45);
+  outline-offset: 2px;
+}
+
 .stat-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -70,4 +87,94 @@
   background-color: #e8f4fd;
   padding: 10px 30px;
   border-radius: 8px;
+}
+
+.inicio-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #e1e8ed;
+  color: #2c3e50;
+  margin-top: auto;
+}
+
+.inicio-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inicio-brand-name {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  line-height: 1.05;
+}
+
+.inicio-brand-subtitle {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  line-height: 1.05;
+}
+
+.inicio-footer {
+  margin-top: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+}
+
+.footer-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-title {
+  font-weight: 900;
+  color: #2c3e50;
+  letter-spacing: 0.2px;
+}
+
+.footer-subtitle {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}
+
+.footer-right {
+  color: #95a5a6;
+  font-weight: 800;
+}
+
+.footer-note {
+  margin-top: 10px;
+  color: #34495e;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 520px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

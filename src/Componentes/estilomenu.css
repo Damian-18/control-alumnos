@@ -18,6 +18,18 @@
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-text {
+  line-height: 1;
 }
 
 .nav-button:hover {

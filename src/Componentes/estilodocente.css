@@ -35,6 +35,16 @@
   box-sizing: border-box;
 }
 
+.form-error {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: #b00020;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
 /* --- Botones --- */
 .btn {
   padding: 10px 15px;

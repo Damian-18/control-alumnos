@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './estilodocente.css';
+import './estiloavisos.css';
+import Aviso from './Aviso';
+import ConfirmModal from './ConfirmModal';
 
 const Docentes = ({ volverInicio }) => {
   // 1. AFINACIÓN: Leer localStorage directamente al iniciar el estado
@@ -10,30 +13,14 @@ const Docentes = ({ volverInicio }) => {
   
   const [formData, setFormData] = useState({ id: '', nombre: '', especialidad: '', correo: '' });
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState('');
+  const [aviso, setAviso] = useState({ tipo: '', mensaje: '' });
+  const [confirm, setConfirm] = useState({ open: false, title: '', message: '', onConfirm: null });
 
- // 1. CARGA INICIAL (Solo se ejecuta una vez al abrir la pestaña)
-    useEffect(() => {
-    const datosGuardados = localStorage.getItem('docentes'); // Cambia 'docentes' por 'alumnos' o 'clases' según el archivo
-    if (datosGuardados) {
-        try {
-        const parsed = JSON.parse(datosGuardados);
-        // Solo actualizamos el estado si realmente hay datos en el storage
-        if (Array.isArray(parsed) && parsed.length > 0) {
-            setDocentes(parsed); // Cambia setDocentes por setAlumnos o setClases
-        }
-        } catch (error) {
-        console.error("Error cargando LocalStorage", error);
-        }
-    }
-    }, []);
-
-    // 2. GUARDADO SEGURO (Solo guarda si hay algo que guardar)
-    useEffect(() => {
-    // Solo guardamos si la lista tiene elementos para evitar borrar el storage por accidente
-    if (docentes.length > 0) {
-        localStorage.setItem('docentes', JSON.stringify(docentes));
-    }
-    }, [docentes]);
+  // Guardar en LocalStorage (incluye el caso "lista vacia")
+  useEffect(() => {
+    localStorage.setItem('docentes', JSON.stringify(docentes));
+  }, [docentes]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,19 +28,46 @@ const Docentes = ({ volverInicio }) => {
       ...formData,
       [name]: value
     });
+    if (error) setError('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const nombre = (formData.nombre || '').trim();
+    const especialidad = (formData.especialidad || '').trim();
+    const correo = (formData.correo || '').trim();
+    if (!nombre) {
+      setError('El nombre es obligatorio.');
+      return;
+    }
+    if (!especialidad) {
+      setError('La especialidad es obligatoria.');
+      return;
+    }
+    if (!correo) {
+      setError('El correo es obligatorio.');
+      return;
+    }
+    // Evita duplicados de correo (practico para una escuela)
+    const correoLower = correo.toLowerCase();
+    const existeCorreo = docentes.some(d => (d.correo || '').toLowerCase() === correoLower && d.id !== formData.id);
+    if (existeCorreo) {
+      setError('Ya existe un docente con ese correo.');
+      return;
+    }
+
     if (isEditing) {
       const docentesActualizados = docentes.map((docente) =>
-        docente.id === formData.id ? formData : docente
+        docente.id === formData.id ? { ...formData, nombre, especialidad, correo } : docente
       );
       setDocentes(docentesActualizados);
       setIsEditing(false);
+      setAviso({ tipo: 'success', mensaje: 'Docente actualizado.' });
     } else {
-      const nuevoDocente = { ...formData, id: Date.now().toString() };
+      const nuevoDocente = { ...formData, id: Date.now().toString(), nombre, especialidad, correo };
       setDocentes([...docentes, nuevoDocente]);
+      setAviso({ tipo: 'success', mensaje: 'Docente registrado.' });
     }
     setFormData({ id: '', nombre: '', especialidad: '', correo: '' });
   };
@@ -64,15 +78,40 @@ const Docentes = ({ volverInicio }) => {
   };
 
   const handleDelete = (id) => {
-    const confirmar = window.confirm('¿Estás seguro de eliminar a este docente?');
-    if (confirmar) {
-      const docentesFiltrados = docentes.filter((docente) => docente.id !== id);
-      setDocentes(docentesFiltrados);
+    // Regla de negocio: no borrar docentes asignados a clases.
+    const clases = JSON.parse(localStorage.getItem('clases')) || [];
+    const clasesAsignadas = clases.filter(c => c.docenteId === id);
+    if (clasesAsignadas.length > 0) {
+      setAviso({ tipo: 'warn', mensaje: `No se puede eliminar este docente porque está asignado a ${clasesAsignadas.length} clase(s). Reasigna esas clases primero.` });
+      return;
     }
+
+    setConfirm({
+      open: true,
+      title: 'Eliminar docente',
+      message: '¿Estás seguro de eliminar a este docente?',
+      onConfirm: () => {
+        const docentesFiltrados = docentes.filter((docente) => docente.id !== id);
+        setDocentes(docentesFiltrados);
+        setAviso({ tipo: 'success', mensaje: 'Docente eliminado.' });
+        setConfirm({ open: false, title: '', message: '', onConfirm: null });
+      }
+    });
   };
 
   return (
     <div className="docentes-container">
+      <Aviso tipo={aviso.tipo} mensaje={aviso.mensaje} onClose={() => setAviso({ tipo: '', mensaje: '' })} />
+      <ConfirmModal
+        open={confirm.open}
+        title={confirm.title}
+        message={confirm.message}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        tone="danger"
+        onCancel={() => setConfirm({ open: false, title: '', message: '', onConfirm: null })}
+        onConfirm={() => confirm.onConfirm?.()}
+      />
       {/* 2. Envolver el título y el botón en un div flex para alinearlos */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <h2 className="docentes-titulo" style={{ margin: 0 }}>Gestión de Docentes</h2>
@@ -89,6 +128,9 @@ const Docentes = ({ volverInicio }) => {
       <div className="docentes-card">
         <h3>{isEditing ? 'Editar Docente' : 'Agregar Nuevo Docente'}</h3>
         <form onSubmit={handleSubmit}>
+          {error && (
+            <div className="form-error" role="alert">{error}</div>
+          )}
           <div className="form-group">
             <label className="form-label">Nombre Completo:</label>
             <input

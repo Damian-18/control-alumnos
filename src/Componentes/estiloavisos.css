@@ -1,0 +1,114 @@
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid;
+  margin-bottom: 12px;
+}
+
+.aviso strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.aviso .aviso-texto {
+  flex: 1;
+}
+
+.aviso .aviso-cerrar {
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.aviso-info {
+  background: #e8f4fd;
+  border-color: #3498db;
+  color: #1f4d6b;
+}
+
+.aviso-success {
+  background: #e9f7ef;
+  border-color: #27ae60;
+  color: #1f6b3b;
+}
+
+.aviso-warn {
+  background: #fff6e6;
+  border-color: #f39c12;
+  color: #7a4b00;
+}
+
+.aviso-error {
+  background: #fdecea;
+  border-color: #e74c3c;
+  color: #7b1e16;
+}
+
+/* Modal confirmacion */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e1e8ed;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 16px;
+}
+
+.modal h4 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+}
+
+.modal p {
+  margin: 0;
+  color: #34495e;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.modal-btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #dcdfe6;
+  cursor: pointer;
+  background: #ffffff;
+  font-weight: 800;
+}
+
+.modal-btn-danger {
+  background: #e74c3c;
+  border-color: #e74c3c;
+  color: #ffffff;
+}
+
+.modal-btn-primary {
+  background: #3498db;
+  border-color: #3498db;
+  color: #ffffff;
+}

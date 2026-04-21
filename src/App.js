@@ -4,6 +4,7 @@ import './Componentes/estilomenu.css';
 import Alumnos from './Componentes/Alumnos';
 import Clases from './Componentes/Clases';
 import Inicio from './Componentes/Inicio';
+import { GraduationCap, Users, BookOpen } from 'lucide-react';
 
 function App() {
   // Estado para saber qué vista mostrar
@@ -14,32 +15,42 @@ function App() {
       {/* Menú de Navegación */}
       <nav className="navbar">
         <button 
+          className={`nav-button ${vistaActual === 'inicio' ? 'active' : ''}`}
+          onClick={() => setVistaActual('inicio')}
+        >
+          <span className="nav-icon" aria-hidden="true"><GraduationCap size={18} /></span>
+          <span className="nav-text">Inicio</span>
+        </button>
+        <button 
           className={`nav-button ${vistaActual === 'docentes' ? 'active' : ''}`}
           onClick={() => setVistaActual('docentes')}
         >
-          Docentes
+          <span className="nav-icon" aria-hidden="true"><Users size={18} /></span>
+          <span className="nav-text">Docentes</span>
         </button>
         <button 
           className={`nav-button ${vistaActual === 'clases' ? 'active' : ''}`}
           onClick={() => setVistaActual('clases')}
         >
-          Clases
+          <span className="nav-icon" aria-hidden="true"><BookOpen size={18} /></span>
+          <span className="nav-text">Clases</span>
         </button>
         <button 
           className={`nav-button ${vistaActual === 'alumnos' ? 'active' : ''}`}
           onClick={() => setVistaActual('alumnos')}
         >
-          Alumnos
+          <span className="nav-icon" aria-hidden="true"><GraduationCap size={18} /></span>
+          <span className="nav-text">Alumnos</span>
         </button>
       </nav>
 
       {/* Renderizado Condicional */}
-      <main>
-        {vistaActual === 'inicio' && <Inicio />}
-        {vistaActual === 'docentes' && <Docentes volverInicio={() => setVistaActual('inicio')} />}
-        {vistaActual === 'clases' && <Clases volverInicio={() => setVistaActual('inicio')} />}
-        {vistaActual === 'alumnos' && <Alumnos volverInicio={() => setVistaActual('inicio')} />}
-      </main>
+      <main className="main-content">
+          {vistaActual === 'inicio' && <Inicio irA={(vista) => setVistaActual(vista)} />}
+          {vistaActual === 'docentes' && <Docentes volverInicio={() => setVistaActual('inicio')} />}
+          {vistaActual === 'clases' && <Clases volverInicio={() => setVistaActual('inicio')} />}
+          {vistaActual === 'alumnos' && <Alumnos volverInicio={() => setVistaActual('inicio')} />}
+        </main>
     </div>
   );
 }
